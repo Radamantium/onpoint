@@ -1,0 +1,27 @@
+{
+  "name": "onpoint",
+  "version": "1.0.0",
+  "description": "Onpoint test task",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Radamantium/onpoint.git"
+  },
+  "author": "Eugene Talaev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Radamantium/onpoint/issues"
+  },
+  "homepage": "https://github.com/Radamantium/onpoint#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "autoprefixer": "^9.6.0",
+    "cssnano": "^4.1.10",
+    "gulp": "^4.0.2",
+    "gulp-postcss": "^8.0.0",
+    "postcss-import": "^12.0.1"
+  }
+}
