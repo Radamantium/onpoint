@@ -1,0 +1,18 @@
+/* Pagination */
+.pagination {
+	position: absolute; 
+	right: 25px;
+}
+.pagination__bullet {
+	cursor: pointer;
+	display: block;
+	width: 13px;
+	height: 13px;
+	margin: 6px 0;
+	border-radius: 100%;
+	background: #fff;
+	transition: background 0.5s ease;
+}
+.pagination__bullet_active {
+	background: #f78b1f;
+}

@@ -1,3 +1,8 @@
+/* Global variables */
+:root {
+	--frame-width: 1024px;
+	--frame-height: 768px;
+}
 /* Common properties */
 * {
 	outline: none;
@@ -25,7 +30,7 @@ h1, h2, h3 {
 	padding: 0;
 }
 section {
-	height: 768px;
+	height: var(--frame-height, 768px);
 	width: 100%;
 }
 
@@ -39,12 +44,10 @@ section {
 	align-items: center;
 }
 .frame {
-	width: 1024px;
-	height: 768px;
+	width: var(--frame-width, 1024px);
+	height: var(--frame-height, 768px);
 	margin: 0;
 	padding: 0;
-	position: relative;
-	overflow: hidden;
 }
 .content {
 	background: url('../img/bg-main.jpg') top center no-repeat;
@@ -117,13 +120,10 @@ section {
 }
 .scroll-down {
 	position: absolute;
-	display: block;
 	color: #fff;
 	font-family: 'GothamPro';
 	font-size: 15px;
 	text-align: center;
-	text-decoration: none;
-	padding-top: 20px;
 	width: 1024px;
 	height: 70px;
 	bottom: 0;
@@ -200,12 +200,13 @@ section {
 	font-size: 50px;
 	text-align: center;
 }
-.parallaxed {
+.ice-parallaxed {
 	position: absolute;
+	width: var(--frame-width, 1024px);
+	height: var(--frame-height, 768px);
 	top: 0;
-	width: 1024px;
-	height: 768px;
-	background: url('../img/bg-parallaxed.png');
+	left: 0;
+	background-image: url("../img/bg-parallaxed.png");
 	background-size: cover;
 }
 
@@ -219,7 +220,7 @@ section {
 	display: flex;
 	transition: margin 1s ease;
 }
-.slider_slide-one {
+/*.slider_slide-one {
 	margin-left: 0px;
 }
 .slider_slide-two {
@@ -227,10 +228,10 @@ section {
 }
 .slider_slide-three {
 	margin-left: -2048px;
-}
+}*/
 .slide {
-	width: 1024px;
-	height: 768px;
+	width: var(--frame-width, 1024px);
+	height: var(--frame-height, 768px);
 	flex-shrink: 0;
 }
 .slide_1988 {
@@ -343,25 +344,6 @@ section {
 }
 
 
-/* Pagination */
-.pagination {
-	position: absolute; 
-	top: 50vh;
-	margin-top: -33px;
-	right: 25px;
-}
-.pagination__bullet {
-	cursor: pointer;
-	display: block;
-	width: 13px;
-	height: 13px;
-	margin: 6px 0;
-	border-radius: 100%;
-	background: #fff;
-	transition: background 0.5s ease;
-}
-.pagination__bullet_active {
-	background: #f78b1f;
-}
+
 
 
