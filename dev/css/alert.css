@@ -1,0 +1,37 @@
+.alert__wave {
+	position: absolute;
+	width: 1em;
+	height: 1em;
+	top: 0.5em;
+	left: 0.5em;
+	margin-left: -0.5em;
+	margin-top: -0.5em;
+	border-radius: 100%;
+	border: 1px solid rgba(255,24,63,0);
+	animation: alert 4s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+.alert__wave:nth-child(2) {
+	animation-delay: -1s;
+}
+.alert__wave:nth-child(3) {
+	animation-delay: -2s;
+}
+.alert__wave:nth-child(4) {
+	animation-delay: -3s;
+}
+@keyframes alert {
+	from {
+		border: 1px solid rgba(255,24,63,0);
+		background: rgba(242,149,43,0.9);
+		transform: scale(0.1);
+	}
+	50% {
+		border-color: rgba(255,24,63,0.8);
+		background-color: rgba(242,149,43,0.4);
+	}
+	to {
+		border-color: rgba(255,24,63,1);
+		background-color: rgba(242,149,43,0.1);
+		transform: scale(1);
+	}
+}

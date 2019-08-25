@@ -5,7 +5,10 @@
 	<title>Onpoint - тестовое задание</title>
 	<link rel="stylesheet" href="css/fonts.css">
 	<link rel="stylesheet" href="css/frame_sections_scrolling.css">
+	<link rel="stylesheet" href="css/slider.css">
+	<link rel="stylesheet" href="css/alert.css">
 	<link rel="stylesheet" href="css/styles.css">
+	<link rel="icon" href="img/icon.png" type="image/x-icon">
 </head>
 <body class="frame-wrapper">
 	<div class="frame" id="frame">
@@ -16,44 +19,28 @@
 				</h1>
 				<ul class="icberg-tips">
 					<li class="icberg-tip">
-						<div class="icberg-tip__alert icberg-tip__alert_hba1c">
-							<div class="icberg-tip__alert-wave"></div>
-							<div class="icberg-tip__alert-wave"></div>
-							<div class="icberg-tip__alert-wave"></div>
-							<div class="icberg-tip__alert-wave"></div>
+						<div class="icberg-tip__alert icberg-tip__alert_hba1c alert">
 						</div>
 						<p class="icberg-tip__name icberg-tip__name_hba1c">
 							Цель по HbA1c
 						</p>
 					</li>
 					<li class="icberg-tip">
-						<div class="icberg-tip__alert icberg-tip__alert_hypoglycemia">
-							<div class="icberg-tip__alert-wave"></div>
-							<div class="icberg-tip__alert-wave"></div>
-							<div class="icberg-tip__alert-wave"></div>
-							<div class="icberg-tip__alert-wave"></div>
+						<div class="icberg-tip__alert icberg-tip__alert_hypoglycemia alert">
 						</div>
 						<p class="icberg-tip__name icberg-tip__name_hypoglycemia">
 							Гипогликемия
 						</p>
 					</li>
 					<li class="icberg-tip">
-						<div class="icberg-tip__alert icberg-tip__alert_risks">
-							<div class="icberg-tip__alert-wave"></div>
-							<div class="icberg-tip__alert-wave"></div>
-							<div class="icberg-tip__alert-wave"></div>
-							<div class="icberg-tip__alert-wave"></div>
+						<div class="icberg-tip__alert icberg-tip__alert_risks alert">
 						</div>
 						<p class="icberg-tip__name icberg-tip__name_risks">
 							СС риски
 						</p>
 					</li>
 					<li class="icberg-tip">
-						<div class="icberg-tip__alert icberg-tip__alert_complications">
-							<div class="icberg-tip__alert-wave"></div>
-							<div class="icberg-tip__alert-wave"></div>
-							<div class="icberg-tip__alert-wave"></div>
-							<div class="icberg-tip__alert-wave"></div>
+						<div class="icberg-tip__alert icberg-tip__alert_complications alert">
 						</div>
 						<p class="icberg-tip__name icberg-tip__name_complications">
 							Осложнения СД
@@ -71,11 +58,14 @@
 				<div id="ice-parallaxed" class="ice-parallaxed"></div>
 			</section>
 			<section id="history" class="history">
-				<div id="slider" class="slider">
-					<div class="slide slide_1988">
-						<h3 class="slide__title">
+				<div id="slider">
+					<div class="history__item_1988 slide">
+						<h3 class="history__item-title">
 							Звенья патогенеза СД2
 						</h3>
+						<h4 class="slide__label">
+							1988
+						</h4>
 						<!-- <ul class="scheme scheme_1988">
 							<li class="scheme-item">
 								<div class="scheme-item__num">
@@ -117,10 +107,13 @@
 							</li>
 						</ul> -->
 					</div>
-					<div class="slide slide_2009">
-						<h3 class="slide__title">
+					<div class="history__item_2009 slide">
+						<h3 class="history__item-title">
 							Смертельный октет
 						</h3>
+						<h4 class="slide__label">
+							2009
+						</h4>
 						<!-- <ul class="scheme">
 							<li class="scheme-item">
 								<div class="scheme-item__num">
@@ -207,10 +200,13 @@
 							<li>Гипергликемия</li>
 						</ul> -->
 					</div>
-					<div class="slide slide_2016">
-						<h3 class="slide__title">
+					<div class="history__item_2016 slide">
+						<h3 class="history__item-title">
 							Звенья патогенеза СД2
 						</h3>
+						<h4 class="slide__label">
+							2016
+						</h4>
 						<!-- <ul class="scheme">
 							<li class="scheme-item">
 								<div class="scheme-item__num">
@@ -333,7 +329,7 @@
 						</ul> -->
 					</div>
 				</div>
-				<div class="slider__nav">
+				<!-- <div class="slider__nav">
 					<div class="slider__line" id="slider-line">
 						<div class="slider__line-progress"  id="slider-progress"></div>
 						<div class="slider__thumb" id="slider-thumb">
@@ -351,7 +347,7 @@
 							2016
 						</div>
 					</div>
-				</div>
+				</div> -->
 			</section>	
 		</div>
 	</div>
@@ -359,6 +355,7 @@
 </html>
 <script src="js/frame_sections_scrolling.js"></script>
 <script src="js/slider.js"></script>
+<script src="js/alert.js"></script>
 <script src="js/main.js"></script>
 <script>
 	frameSectionsScrolling(
@@ -371,10 +368,12 @@
 				parallaxRatio: 0.5},
 			scrollLinks: {
 				id: 'scroll-down',
-				sectionNum: 1}
+				sectionNum: 1},
+			customUpdateFunctions: []
 		});
 	slider('slider',
 			{
-				position: 'last'
+				scrollTime: 1,
+				currentSlide: 'last'
 			});
 </script>

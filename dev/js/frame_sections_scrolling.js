@@ -1,3 +1,5 @@
+'use strict';
+
 function frameSectionsScrolling(container_id, content_id, options = {}) {
 	// * DEFAULT OPTIONS *
 	if ( !('scrollTime' in options) || isNaN(options['scrollTime']) )  {
@@ -12,8 +14,8 @@ function frameSectionsScrolling(container_id, content_id, options = {}) {
 		options['scrollLinks'] = [];
 	}
 
-	if ( !('customFunctions' in options) )  {
-		options['customFunctions'] = [];
+	if ( !('customUpdateFunctions' in options) )  {
+		options['customUpdateFunctions'] = [];
 	}
 	
 
@@ -162,7 +164,7 @@ function frameSectionsScrolling(container_id, content_id, options = {}) {
 	// * PARALLAXED *
 	updateParallaxed();
 
-	// * FUNCTIONS *
+	// * SCROLL AND UPDATE FUNCTIONS *
 	function scrollAndUpdateByLink() {
 		var scrollTo = this.dataset.top;
 		scrollAndUpdateByPosition(scrollTo);
