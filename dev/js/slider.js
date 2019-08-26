@@ -82,9 +82,9 @@ function slider(slider_id, options = {}) {
 	sliderCursor.id = 'slider__cursor';
 	sliderCursor.classList.add('slider__cursor');
 	sliderCursor.style.transform = 'translateX(0)';
-	var sliderCursorThumb = document.createElement('div');
-	sliderCursorThumb.classList.add('slider__cursor-thumb');
-	sliderCursor.appendChild(sliderCursorThumb);
+		var sliderCursorThumb = document.createElement('div');
+		sliderCursorThumb.classList.add('slider__cursor-thumb');
+		sliderCursor.appendChild(sliderCursorThumb);
 	sliderNav.appendChild(sliderCursor);
 
 	var sliderPositions = document.createElement('div');
@@ -106,17 +106,17 @@ function slider(slider_id, options = {}) {
 	var width = options.lineWidth;
 	var slidesNum = slides.length;
 	var step = width / (slidesNum - 1);
-	for (var left = 0, positoin = 0, rigth = step/2, i = 0; i < slides.length; i++) {
+	for (var left = 0, position = 0, rigth = step/2, i = 0; i < slides.length; i++) {
 		sliderLineRanges[i] = {};
 		sliderLineRanges[i].left 	 = left;
-		sliderLineRanges[i].position = positoin;
+		sliderLineRanges[i].position = position;
 		sliderLineRanges[i].rigth 	 = rigth;
 		// console.log(sliderLineRanges[i]);
 		left = rigth + 1;
-		positoin += step;
+		position += step;
 		rigth = (rigth + step) < width ?
 				rigth + step :
-				positoin;
+				position;
 	}
 
 	//slidesLeftPositions
@@ -165,13 +165,11 @@ function slider(slider_id, options = {}) {
 		e.preventDefault();
 		e.stopPropagation();
 		
-		// console.log("onmousedown");
 		var mouseBeginX = e.pageX,
 			mouseEndX,
 			mouseDelta;
 
 		slider.onmousemove = function(e) {
-			// console.log("onmousemove");
 			e.preventDefault();
 			mouseEndX = e.pageX;
 			mouseDelta = mouseEndX - mouseBeginX;
@@ -183,28 +181,56 @@ function slider(slider_id, options = {}) {
 			) {
 				sliderCursorPosition = newSliderCursorPosition;
 				updateSlider();
-				updateSliderCursorPosition();
+				updateSliderPosition();
 			}
 		}
 
 		slider.onmouseup = function(e) {
 			e.preventDefault();
-			// console.log("onmouseup");
-			updateSliderCursorDisplay();
+			setSliderCursorAndProgressDisplay();
 			slider.onmousemove = null;
 			slider.onmouseup = null;
 		}
 	}
 
 
+	// * TOUCH SCROLLING *
+	sliderCursor.addEventListener('touchstart',	 sliderCursorTouchStart, false);
+	sliderCursor.addEventListener('touchmove',	 sliderCursorTouchMove,	 false);
+	sliderCursor.addEventListener('touchend',	 sliderCursorTouchEnd,	 false);
+	sliderCursor.addEventListener('touchcancel', sliderCursorTouchEnd,	 false);
+
+	var touchBeginY,
+		touchEndY,
+		touchDelta;
+
+	function sliderCursorTouchStart(e) {
+		e.stopPropagation();
+		var touches = e.changedTouches;
+		// touchBeginY = touches[0].pageY;
+	}
+
+	function sliderCursorTouchMove(e) {
+		var touches = e.changedTouches;
+		// touchEndY = touches[0].pageY;
+		// touchDelta = touchBeginY - touchEndY;
+	}
+
+	function sliderCursorTouchEnd(e) {
+		// scrollAndUpdateByDelta(touchDelta);
+		// touchDelta = 0;
+	};
+
 	
-	// Slider update functions
-	
+	// SLIDER UPDATE FUNCTIONS
 	function updateSlider() {
-		updateSliderCursorPosition();
+		updateSliderCursorAndProgressDisplay();
+		updateSliderDisplay();
+	}
+
+	function updateSliderCursorAndProgressDisplay() {
 		updateSliderCursorDisplay();
 		updateSliderProgressDisplay();
-		updateSliderDisplay();
 	}
 
 	function updateSliderCursorDisplay() {
@@ -215,7 +241,12 @@ function slider(slider_id, options = {}) {
 		sliderProgress.style.width = sliderCursorPosition + 'px';
 	}
 
-	function updateSliderCursorPosition() {
+	function setSliderCursorAndProgressDisplay() {
+		sliderCursorPosition = sliderLineRanges[displayedSlideNum].position;
+		updateSliderCursorAndProgressDisplay();
+	}
+
+	function updateSliderPosition() {
 		for (var i = 0; i < slides.length; i++) {
 			if (
 				sliderCursorPosition <= sliderLineRanges[i].rigth &&
@@ -223,7 +254,6 @@ function slider(slider_id, options = {}) {
 			) {
 				displayedSlideNum = i;
 				updateSliderDisplay();	
-				// console.log('updateSliderDisplay');
 				break;
 			}
 		}

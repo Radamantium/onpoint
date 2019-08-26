@@ -56,15 +56,33 @@ function frameSectionsScrolling(container_id, content_id, options = {}) {
 	
 	//Creating bullets
 	for (var elem, currentSectionTop = 0, i = 0; i < sections.length; i++) {
-		elem = document.createElement('div');
-		elem.classList.add('pagination__bullet');
-		elem.dataset.top = currentSectionTop;
-		elem.dataset.num = i;
-		elem.addEventListener('click', scrollAndUpdateByLink.bind(elem));
+		// elem = generateBullet(i);
+		elem = new Bullet(i);
 		nav.appendChild(elem);
 		sectionsTops.push(currentSectionTop);
 		currentSectionTop += sections[i].offsetHeight;
 	}
+
+	// function generateBullet(num) {
+	// 	var bullet;
+	// 	bullet = document.createElement('div');
+	// 	bullet.classList.add('pagination__bullet');
+	// 	bullet.dataset.top = currentSectionTop;
+	// 	bullet.dataset.num = num;
+	// 	bullet.addEventListener('click', scrollAndUpdateByLink.bind(bullet));
+	// 	return bullet;
+	// }
+
+	function Bullet(num) {
+		var bullet;
+		bullet = document.createElement('div');
+		bullet.classList.add('pagination__bullet');
+		bullet.dataset.top = currentSectionTop;
+		bullet.dataset.num = num;
+		bullet.addEventListener('click', scrollAndUpdateByLink.bind(bullet));
+		return bullet;
+	}
+
 	//Set first bullet as active
 	var activeBullet = nav.getElementsByTagName('div')[0];
 	activeBullet.classList.add('pagination__bullet_active');
@@ -184,6 +202,7 @@ function frameSectionsScrolling(container_id, content_id, options = {}) {
 		scroll(scrollTo);
 		updatePagination();
 		updateParallaxed();
+		updateCustomFunctions();
 	}
 
 	function scroll(scrollTo) {
@@ -236,6 +255,26 @@ function frameSectionsScrolling(container_id, content_id, options = {}) {
 			} else if (elemSectionNum < displayedSectionNum) {
 				elem.style.transform = 'translateY(-' + shift + 'px)';
 			}
+		}
+	}
+
+	function updateCustomFunctions() {
+		var custom = options.customUpdateFunctions;
+		if ( Array.isArray(custom) ) {
+			for (var i =  0; i < custom.length; i++) {
+				tryCustomUpdate(custom[i]);
+			}
+		} else {
+			tryCustomUpdate(custom);
+		}
+	}
+
+	function tryCustomUpdate(customUpdate) {
+		try {
+			customUpdate();
+		} catch (err) {
+			console.log(err.message);
+			return;
 		}
 	}
 

@@ -124,12 +124,12 @@ section {
 	font-family: 'GothamPro';
 	font-size: 15px;
 	text-align: center;
-	width: 1024px;
+	width: var(--frame-width, 1024px);
 	height: 70px;
 	bottom: 0;
 	background: url('../img/bg-scroll-down.png') bottom center no-repeat;
 	background-size: cover;
-	transition: opacity 0.3s ease;
+	transition: opacity 0.2s ease;
 	opacity: 1;
 }
 .scroll-down:hover, .scroll-down:active, .scroll-down:focus {
