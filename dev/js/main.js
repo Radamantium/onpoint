@@ -19,13 +19,16 @@ frameSectionsScrolling(
 				linkElem.style.opacity = 0;
 			}
 		}
-	});
+	}
+);
 
-slider('slider',
-		{
-			scrollTime: 1,
-			currentSlide: 'last'
-		});
+slider(
+	'slider',
+	{
+		scrollTime: 1,
+		currentSlide: 'last'
+	}
+);
 
 
 

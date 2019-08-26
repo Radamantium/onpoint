@@ -123,34 +123,35 @@ function frameSectionsScrolling(container_id, content_id, options = {}) {
 	}
 
 	// * TOUCH SCROLLING *
-	content.addEventListener('touchstart',	contentTouchStart,	false);
-	content.addEventListener('touchmove',	contentTouchMove,	false);
-	content.addEventListener('touchend',	contentTouchEnd,	false);
-	content.addEventListener('touchcancel',	contentTouchEnd,	false);
+	{
+		content.addEventListener('touchstart',	contentTouchStart,	false);
+		content.addEventListener('touchmove',	contentTouchMove,	false);
+		content.addEventListener('touchend',	contentTouchEnd,	false);
+		content.addEventListener('touchcancel',	contentTouchEnd,	false);
 
-	var touchBeginY,
-		touchEndY,
-		touchDelta;
+		let touchBeginY,
+			touchEndY,
+			touchDelta;
 
-	function contentTouchStart(e) {
-		// e.preventDefault();
-		var touches = e.changedTouches;
-		touchBeginY = touches[0].pageY;
+		function contentTouchStart(e) {
+			// e.preventDefault();
+			var touches = e.changedTouches;
+			touchBeginY = touches[0].pageY;
+		}
+
+		function contentTouchMove(e) {
+			// e.preventDefault();
+			var touches = e.changedTouches;
+			touchEndY = touches[0].pageY;
+			touchDelta = touchBeginY - touchEndY;
+		}
+
+		function contentTouchEnd(e) {
+			// e.preventDefault();
+			scrollAndUpdateByDelta(touchDelta);
+			touchDelta = 0;
+		};
 	}
-
-	function contentTouchMove(e) {
-		// e.preventDefault();
-		var touches = e.changedTouches;
-		touchEndY = touches[0].pageY;
-		touchDelta = touchBeginY - touchEndY;
-	}
-
-	function contentTouchEnd(e) {
-		// e.preventDefault();
-		scrollAndUpdateByDelta(touchDelta);
-		touchDelta = 0;
-	};
-
 
 	// * SCROLL LINKS *
 	setScrollLinks();

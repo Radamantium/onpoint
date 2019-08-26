@@ -162,7 +162,7 @@ function slider(slider_id, options = {}) {
 	// * MOUSE POINTER SCROLLING *
 
 	sliderCursor.onmousedown = function(e) {
-		e.preventDefault();
+		// e.preventDefault();
 		e.stopPropagation();
 		
 		var mouseBeginX = e.pageX,
@@ -170,23 +170,24 @@ function slider(slider_id, options = {}) {
 			mouseDelta;
 
 		slider.onmousemove = function(e) {
-			e.preventDefault();
+			// e.preventDefault();
 			mouseEndX = e.pageX;
 			mouseDelta = mouseEndX - mouseBeginX;
 			mouseBeginX = mouseEndX;
-			var newSliderCursorPosition = sliderCursorPosition + mouseDelta;
-			if (
-				newSliderCursorPosition >= 0 && 
-				newSliderCursorPosition <= options.lineWidth
-			) {
-				sliderCursorPosition = newSliderCursorPosition;
-				updateSlider();
-				updateSliderPosition();
-			}
+			updateSliderByCursorDelta(mouseDelta);
+			// var newSliderCursorPosition = sliderCursorPosition + mouseDelta;
+			// if (
+			// 	newSliderCursorPosition >= 0 && 
+			// 	newSliderCursorPosition <= options.lineWidth
+			// ) {
+			// 	sliderCursorPosition = newSliderCursorPosition;
+			// 	updateSlider();
+			// 	updateSliderPosition();
+			// }
 		}
 
 		slider.onmouseup = function(e) {
-			e.preventDefault();
+			// e.preventDefault();
 			setSliderCursorAndProgressDisplay();
 			slider.onmousemove = null;
 			slider.onmouseup = null;
@@ -195,34 +196,48 @@ function slider(slider_id, options = {}) {
 
 
 	// * TOUCH SCROLLING *
-	sliderCursor.addEventListener('touchstart',	 sliderCursorTouchStart, false);
-	sliderCursor.addEventListener('touchmove',	 sliderCursorTouchMove,	 false);
-	sliderCursor.addEventListener('touchend',	 sliderCursorTouchEnd,	 false);
-	sliderCursor.addEventListener('touchcancel', sliderCursorTouchEnd,	 false);
+	
+		sliderCursor.addEventListener('touchstart',	 sliderCursorTouchStart, false);
+		sliderCursor.addEventListener('touchmove',	 sliderCursorTouchMove,	 false);
+		sliderCursor.addEventListener('touchend',	 sliderCursorTouchEnd,	 false);
+		sliderCursor.addEventListener('touchcancel', sliderCursorTouchEnd,	 false);
 
-	var touchBeginY,
-		touchEndY,
-		touchDelta;
+		let touchBeginX,
+			touchEndX,
+			touchDelta;
 
-	function sliderCursorTouchStart(e) {
-		e.stopPropagation();
-		var touches = e.changedTouches;
-		// touchBeginY = touches[0].pageY;
-	}
+		function sliderCursorTouchStart(e) {
+			e.stopPropagation();
+			var touches = e.changedTouches;
+			touchBeginX = touches[0].pageX;
+		}
 
-	function sliderCursorTouchMove(e) {
-		var touches = e.changedTouches;
-		// touchEndY = touches[0].pageY;
-		// touchDelta = touchBeginY - touchEndY;
-	}
+		function sliderCursorTouchMove(e) {
+			var touches = e.changedTouches;
+			touchEndX = touches[0].pageX;
+			touchDelta = touchEndX - touchBeginX;
+			touchBeginX = touchEndX;
+			updateSliderByCursorDelta(touchDelta);
+		}
 
-	function sliderCursorTouchEnd(e) {
-		// scrollAndUpdateByDelta(touchDelta);
-		// touchDelta = 0;
-	};
-
+		function sliderCursorTouchEnd(e) {
+			setSliderCursorAndProgressDisplay();
+		};
+	
 	
 	// SLIDER UPDATE FUNCTIONS
+	function updateSliderByCursorDelta(delta) {
+		var newSliderCursorPosition = sliderCursorPosition + delta;
+		if (
+			newSliderCursorPosition >= 0 && 
+			newSliderCursorPosition <= options.lineWidth
+		) {
+			sliderCursorPosition = newSliderCursorPosition;
+			updateSliderPosition();
+			updateSlider();			
+		}
+	}
+
 	function updateSlider() {
 		updateSliderCursorAndProgressDisplay();
 		updateSliderDisplay();
