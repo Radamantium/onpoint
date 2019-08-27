@@ -76,6 +76,7 @@ function slider(slider_id, options = {}) {
 	var sliderProgress = document.createElement('div');
 	sliderProgress.id = 'slider__progress';
 	sliderProgress.classList.add('slider__progress');
+	sliderProgress.style.transformOrigin = 'left center';
 	sliderNav.appendChild(sliderProgress);
 
 	var sliderCursor = document.createElement('div');
@@ -253,12 +254,23 @@ function slider(slider_id, options = {}) {
 	}
 
 	function updateSliderProgressDisplay() {
-		sliderProgress.style.width = sliderCursorPosition + 'px';
+		let scale = sliderCursorPosition / options.lineWidth;
+		sliderProgress.style.transform = 'scaleX(' + scale + ') ';
 	}
 
 	function setSliderCursorAndProgressDisplay() {
-		sliderCursorPosition = sliderLineRanges[displayedSlideNum].position;
-		updateSliderCursorAndProgressDisplay();
+		let from = sliderCursorPosition;
+		let to = sliderLineRanges[displayedSlideNum].position;
+		let delta = to - from;
+
+		animate({
+			duration: 500,
+			timing: makeEaseInOut(circ),
+			draw: function(progress) {
+				sliderCursorPosition = from + delta * progress;
+				updateSliderCursorAndProgressDisplay();
+			}
+		});
 	}
 
 	function updateSliderPosition() {
@@ -279,6 +291,36 @@ function slider(slider_id, options = {}) {
 		slider.style.transform = 'translateX(-' + leftPosition + 'px)';
 		sliderNav.style.transform = 'translateX(' + leftPosition + 'px)';
 		// console.log(slider.style.transform);
+	}
+
+	// JS ANIMATION FUNCTOINS
+	function animate(options) {
+		let start = performance.now();
+		requestAnimationFrame(function animate(time) {
+			let timeFraction = (time - start) / options.duration;
+			if (timeFraction > 1) timeFraction = 1;
+
+			let progress = options.timing(timeFraction);
+			options.draw(progress);
+
+			if (timeFraction < 1) {
+				requestAnimationFrame(animate);
+			}
+		});
+	}
+
+	function makeEaseInOut(timing) {
+		return function(timeFraction) {
+			if (timeFraction < .5) {
+				return timing(2 * timeFraction) / 2;
+			} else {
+				return (2 - timing(2 * (1 - timeFraction))) / 2;
+			}
+		}
+	}
+
+	function circ(timeFraction) {
+		return 1 - Math.sin(Math.acos(timeFraction));
 	}
 
 }

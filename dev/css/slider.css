@@ -15,6 +15,9 @@
 .slide {
 	width: var(--frame-width, 1024px);
 	height: var(--frame-height, 768px);
+
+	--line-width: 640px;
+	--line-height: 12px;
 	/*flex-shrink: 0;*/
 }
 
@@ -26,16 +29,16 @@
 	/*z-index: 10;*/
 }
 .slider__line {
-/*	margin: 0 auto 30px;
-*/	width: 640px;
-	height: 12px;
+/*	margin: 0 auto 30px;*/
+	width: var(--line-width, 640px);
+	height: var(--line-height, 12px);
 	background: #435063;
 }
 .slider__progress {
-	height: 12px;
-	width: 240px;
+	width: var(--line-width, 640px);
+	height: var(--line-height, 12px);
 	margin-right: auto;
-	margin-top: -12px;
+	margin-top: calc( 0px - var(--line-height, 12px) );
 	background: #d1eaff;
 }
 .slider__cursor {
