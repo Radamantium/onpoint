@@ -3,6 +3,7 @@
 	--frame-width: 1024px;
 	--frame-height: 768px;
 }
+
 /* Common properties */
 * {
 	outline: none;
@@ -34,7 +35,6 @@ section {
 	width: 100%;
 }
 
-
 /* Container properties */
 .frame-wrapper {
 	width: 100vw;
@@ -53,7 +53,6 @@ section {
 	background: url('../img/bg-main.jpg') top center no-repeat;
 	background-size: cover;
 }
-
 
 /* Iceberg screen */
 .iceberg {
@@ -74,8 +73,6 @@ section {
 }
 .icberg-tip__alert {
 	position: absolute;
-	width: 1em;
-	height: 1em;
 }
 .icberg-tip__alert_hba1c {
  	left: 564px;
@@ -120,27 +117,19 @@ section {
 }
 .scroll-down {
 	position: absolute;
+	cursor: pointer;
 	color: #fff;
 	font-family: 'GothamPro';
 	font-size: 15px;
 	text-align: center;
 	width: var(--frame-width, 1024px);
-	--element-height: 70px;
-	height: var(--element-height);
-/*	top: calc( var(--frame-height) - var(--element-height) );
-*/	bottom: 0;
+	height: 70px;
+	bottom: 0;
 	background: url('../img/bg-scroll-down.png') bottom center no-repeat;
 	background-size: cover;
-/*	transition: opacity 0.2s ease;
-*/	opacity: 1;
+	transition: opacity 0.2s ease;
+	opacity: 1;
 }
-.scroll-down:hover, .scroll-down:active, .scroll-down:focus {
-	color: #fff;
-}
-.scroll-down_hidden {
-	opacity: 0;
-}
-
 
 /* Ice keel screen */
 .ice-keel {
@@ -165,13 +154,11 @@ section {
 	background-size: cover;
 }
 
-
 /* Slider screen */
 .history {
 	position: relative;
 }
-
-.scheme {
+/*.scheme {
 	display: flex;
 	position: relative;
 }
@@ -216,7 +203,7 @@ section {
 	width: 90%;
 }
 .scheme-item__hiperg {}
-.scheme-item__hiperg_1988 {}
+.scheme-item__hiperg_1988 {}*/
 
 .history__item_1988 {
 	background: url('../img/bg-slider-1988.png');
@@ -230,12 +217,9 @@ section {
 	background: url('../img/bg-slider-2016.png');
 	background-size: cover;
 }
-.history__item-title {
+.history__title {
 	font-weight: 400;
 	font-size: 30px;
 	padding-left: 80px;
 	padding-top: 115px;
 }
-
-
-
