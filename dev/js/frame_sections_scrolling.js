@@ -99,6 +99,7 @@ function frameSectionsScrolling(container_id, content_id, options = {}) {
 
   /* MOUSE POINTER SCROLLING */
   content.onmousedown = function(e) {
+  	e.preventDefault();
     let mouseBeginY = e.pageY;
     let mouseEndY;
     let mouseDelta;
@@ -127,6 +128,7 @@ function frameSectionsScrolling(container_id, content_id, options = {}) {
     let touchDelta;
 
     function contentTouchStart(e) {
+    	e.preventDefault();
       let touches = e.changedTouches;
       touchBeginY = touches[0].pageY;
     }

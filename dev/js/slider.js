@@ -58,8 +58,8 @@ function slider(slider_id, options = {}) {
   let sliderPositions;
 
   calcSliderLineRanges();
-  generateNavigation();
   calcSlidesLeftPositions();
+  generateNavigation();
   setSliderStartPosition();
 
   function calcSliderLineRanges() {
@@ -77,6 +77,13 @@ function slider(slider_id, options = {}) {
       rigth = (rigth + step) < width ?
               rigth + step :
               position;
+    }
+  }
+
+  function calcSlidesLeftPositions() {
+    for (let i = 0, leftPosition = 0; i < slides.length; i++) {
+      slidesLeftPositions.push(leftPosition);
+      leftPosition += slides[i].offsetWidth;
     }
   }
 
@@ -148,14 +155,6 @@ function slider(slider_id, options = {}) {
     }
   }
 
-
-  function calcSlidesLeftPositions() {
-    for (let i = 0, leftPosition = 0; i < slides.length; i++) {
-      slidesLeftPositions.push(leftPosition);
-      leftPosition += slides[i].offsetWidth;
-    }
-  }
-
   function setSliderStartPosition() {
     switch (options.currentSlide) {
       case 'first': 
@@ -189,22 +188,23 @@ function slider(slider_id, options = {}) {
   /* MOUSE POINTER SCROLLING */
   sliderCursor.onmousedown = function(e) {
     e.stopPropagation();
+    e.preventDefault();
     
     let mouseBeginX = e.pageX;
     let mouseEndX;
     let mouseDelta;
 
-    slider.onmousemove = function(e) {
+    document.onmousemove = function(e) {
       mouseEndX   = e.pageX;
       mouseDelta  = mouseEndX - mouseBeginX;
       mouseBeginX = mouseEndX;
       updateSliderByCursorDelta(mouseDelta);
     }
 
-    slider.onmouseup = function(e) {
+    document.onmouseup = function(e) {
       setSliderCursorAndProgressToDisplayedSlidePosition();
-      slider.onmousemove = null;
-      slider.onmouseup = null;
+      document.onmousemove = null;
+      document.onmouseup = null;
     }
   }
 
@@ -222,6 +222,7 @@ function slider(slider_id, options = {}) {
 
     function sliderCursorTouchStart(e) {
       e.stopPropagation();
+      e.preventDefault();
       let touches = e.changedTouches;
       touchBeginX = touches[0].pageX;
     }
@@ -235,6 +236,7 @@ function slider(slider_id, options = {}) {
     }
 
     function sliderCursorTouchEnd(e) {
+    	e.stopPropagation();
       setSliderCursorAndProgressToDisplayedSlidePosition();
     };
   }
