@@ -33,9 +33,9 @@ function slider(slider_id, options = {}) {
       throw new Error('function slider: Некорреткные входные данные');
     }
 
-		if (slides.length == 1)  {
-	    return;
-	  }
+    if (slides.length == 1)  {
+      return;
+    }
   } catch (err) {
     console.log(err.message);
     return;
@@ -57,126 +57,132 @@ function slider(slider_id, options = {}) {
   let sliderCursorThumb;
   let sliderPositions;
 
-  generateNavigation();
   calcSliderLineRanges();
+  generateNavigation();
   calcSlidesLeftPositions();
   setSliderStartPosition();
 
-  function generateNavigation() {
-	  sliderNav = document.createElement('div');
-	  sliderNav.id = 'slider__nav';
-	  sliderNav.classList.add('slider__nav');
-	  sliderNav.style.transition = `transform ${options.scrollTime}s ease`;
-
-	  generateSliderLine();
-	  generateSliderProgress();
-	  generateSliderCursorAndSliderCursorThumb();
-	  generateSliderPositions();
-
-	  slider.appendChild(sliderNav);
-
-	  function generateSliderLine() {
-	  	sliderLine = document.createElement('div');
-		  sliderLine.id = 'slider__line';
-		  sliderLine.classList.add('slider__line');
-		  sliderNav.appendChild(sliderLine);
-	  }
-		  
-	  function generateSliderProgress() {
-	  	sliderProgress = document.createElement('div');
-		  sliderProgress.id = 'slider__progress';
-		  sliderProgress.classList.add('slider__progress');
-		  sliderProgress.style.transformOrigin = 'left center';
-		  sliderNav.appendChild(sliderProgress);
-	  }
-	
-	  function generateSliderCursorAndSliderCursorThumb() {
-		  sliderCursor = document.createElement('div');
-		  sliderCursor.id = 'slider__cursor';
-		  sliderCursor.classList.add('slider__cursor');
-		  sliderCursor.style.transform = 'translateX(0)';
-		    sliderCursorThumb = document.createElement('div');
-		    sliderCursorThumb.classList.add('slider__cursor-thumb');
-		    sliderCursor.appendChild(sliderCursorThumb);
-		  sliderNav.appendChild(sliderCursor);
-		}
-
-		function generateSliderPositions() {
-			sliderPositions = document.createElement('div');
-		  sliderPositions.id = 'slider__positions';
-		  sliderPositions.classList.add('slider__positions');
-
-		  for (let positionLabel, slideLabel, i = 0; i < slides.length; i++) {
-		    slideLabel = slides[i].getElementsByClassName('slide__label')[0];
-		    positionLabel = document.createElement('h4');
-
-		    if (slideLabel == undefined) {
-		    	positionLabel.innerHTML = '•';
-		    } else {
-		    	positionLabel.innerHTML = slideLabel.innerHTML;
-		    }
-
-		    sliderPositions.appendChild(positionLabel);
-		  }
-
-		  sliderNav.appendChild(sliderPositions);
-		}
-  }
-
   function calcSliderLineRanges() {
-  	let width = options.lineWidth;
-	  let slidesNum = slides.length;
-	  let step = width / (slidesNum - 1);
-	  for (let left = 0, position = 0, rigth = step/2, i = 0; i < slides.length; i++) {
-	    sliderLineRanges[i] = {};
-	    sliderLineRanges[i].left     = left;
-	    sliderLineRanges[i].position = position;
-	    sliderLineRanges[i].rigth    = rigth;
+    let width = options.lineWidth;
+    let slidesNum = slides.length;
+    let step = width / (slidesNum - 1);
+    for (let left = 0, position = 0, rigth = step/2, i = 0; i < slides.length; i++) {
+      sliderLineRanges[i] = {};
+      sliderLineRanges[i].left     = left;
+      sliderLineRanges[i].position = position;
+      sliderLineRanges[i].rigth    = rigth;
 
-	    left = rigth + 1;
-	    position += step;
-	    rigth = (rigth + step) < width ?
-			        rigth + step :
-			        position;
-	  }
+      left = rigth + 1;
+      position += step;
+      rigth = (rigth + step) < width ?
+              rigth + step :
+              position;
+    }
   }
+
+  function generateNavigation() {
+    sliderNav = document.createElement('div');
+    sliderNav.id = 'slider__nav';
+    sliderNav.classList.add('slider__nav');
+    sliderNav.style.transition = `transform ${options.scrollTime}s ease`;
+
+    generateSliderLine();
+    generateSliderProgress();
+    generateSliderCursorAndSliderCursorThumb();
+    generateSliderPositions();
+
+    slider.appendChild(sliderNav);
+
+    function generateSliderLine() {
+      sliderLine = document.createElement('div');
+      sliderLine.id = 'slider__line';
+      sliderLine.classList.add('slider__line');
+      sliderNav.appendChild(sliderLine);
+    }
+      
+    function generateSliderProgress() {
+      sliderProgress = document.createElement('div');
+      sliderProgress.id = 'slider__progress';
+      sliderProgress.classList.add('slider__progress');
+      sliderProgress.style.transformOrigin = 'left center';
+      sliderNav.appendChild(sliderProgress);
+    }
+  
+    function generateSliderCursorAndSliderCursorThumb() {
+      sliderCursor = document.createElement('div');
+      sliderCursor.id = 'slider__cursor';
+      sliderCursor.classList.add('slider__cursor');
+      sliderCursor.style.transform = 'translateX(0)';
+        sliderCursorThumb = document.createElement('div');
+        sliderCursorThumb.classList.add('slider__cursor-thumb');
+        sliderCursor.appendChild(sliderCursorThumb);
+      sliderNav.appendChild(sliderCursor);
+    }
+
+    function generateSliderPositions() {
+      sliderPositions = document.createElement('div');
+      sliderPositions.id = 'slider__positions';
+      sliderPositions.classList.add('slider__positions');
+
+      for (let positionLabel, slideLabel, i = 0; i < slides.length; i++) {
+        positionLabel = document.createElement('h4');
+
+        slideLabel = slides[i].getElementsByClassName('slide__label')[0];
+        if (slideLabel == undefined) {
+          positionLabel.innerHTML = '•';
+        } else {
+          positionLabel.innerHTML = slideLabel.innerHTML;
+        }
+
+        positionLabel.classList.add('slider__positions-item');
+        let labelWidth = options.lineWidth / slides.length;
+        let position = sliderLineRanges[i].position;
+        let shift = labelWidth/2;
+        positionLabel.style.width = `${ labelWidth }px`;
+        positionLabel.style.left = `${ position - shift }px`;
+
+        sliderPositions.appendChild(positionLabel);
+      }
+
+      sliderNav.appendChild(sliderPositions);
+    }
+  }
+
 
   function calcSlidesLeftPositions() {
-  	for (let i = 0, leftPosition = 0; i < slides.length; i++) {
-	    slidesLeftPositions.push(leftPosition);
-	    leftPosition += slides[i].offsetWidth;
-	  }
+    for (let i = 0, leftPosition = 0; i < slides.length; i++) {
+      slidesLeftPositions.push(leftPosition);
+      leftPosition += slides[i].offsetWidth;
+    }
   }
 
   function setSliderStartPosition() {
-		switch (options.currentSlide) {
-	    case 'first': 
-	      sliderCursorPosition = 0;
-	      displayedSlideNum = 0;
-	      updateSlider();
-	      break;
+    switch (options.currentSlide) {
+      case 'first': 
+        sliderCursorPosition = 0;
+        displayedSlideNum = 0;
+        updateSlider();
+        break;
 
-	    case 'last': 
-	      sliderCursorPosition = options.lineWidth;
-	      displayedSlideNum = slides.length - 1;
-	      updateSlider();
-	      break;
+      case 'last': 
+        sliderCursorPosition = options.lineWidth;
+        displayedSlideNum = slides.length - 1;
+        updateSlider();
+        break;
 
-	    default: 
-	      if (
-	        isNaN(options.currentSlide) ||
-	        options.currentSlide < 0 ||
-	        options.currentSlide >= slides.length
-	      ) {
-	        break;
-	      }
-	      sliderCursorPosition = sliderLineRanges[options.currentSlide].position;
-	      displayedSlideNum = options.currentSlide;
-	      console.log(options.currentSlide);
-	      console.log(sliderLineRanges[options.currentSlide].position);
-	      updateSlider();
-	      break;
-	  }
+      default: 
+        if (
+          isNaN(options.currentSlide) ||
+          options.currentSlide < 0 ||
+          options.currentSlide >= slides.length
+        ) {
+          break;
+        }
+        sliderCursorPosition = sliderLineRanges[options.currentSlide].position;
+        displayedSlideNum = options.currentSlide;
+        updateSlider();
+        break;
+    }
   }
 
 
@@ -196,7 +202,7 @@ function slider(slider_id, options = {}) {
     }
 
     slider.onmouseup = function(e) {
-      setSliderCursorAndProgressDisplay();
+      setSliderCursorAndProgressToDisplayedSlidePosition();
       slider.onmousemove = null;
       slider.onmouseup = null;
     }
@@ -229,7 +235,7 @@ function slider(slider_id, options = {}) {
     }
 
     function sliderCursorTouchEnd(e) {
-      setSliderCursorAndProgressDisplay();
+      setSliderCursorAndProgressToDisplayedSlidePosition();
     };
   }
   
@@ -247,20 +253,20 @@ function slider(slider_id, options = {}) {
       updateSlider();      
     }
 
-	  function updateDisplayedSlideNum() {
-	    for (let i = 0; i < slides.length; i++) {
-	      if (
-	        sliderCursorPosition <= sliderLineRanges[i].rigth &&
-	        sliderCursorPosition >= sliderLineRanges[i].left
-	      ) {
-	        displayedSlideNum = i;
-	        break;
-	      }
-	    }
-	  }
+    function updateDisplayedSlideNum() {
+      for (let i = 0; i < slides.length; i++) {
+        if (
+          sliderCursorPosition <= sliderLineRanges[i].rigth &&
+          sliderCursorPosition >= sliderLineRanges[i].left
+        ) {
+          displayedSlideNum = i;
+          break;
+        }
+      }
+    }
   }
 
-  function setSliderCursorAndProgressDisplay() {
+  function setSliderCursorAndProgressToDisplayedSlidePosition() {
     let from  = sliderCursorPosition;
     let to    = sliderLineRanges[displayedSlideNum].position;
     let delta = to - from;
@@ -271,7 +277,7 @@ function slider(slider_id, options = {}) {
       draw: function(progress) {
         sliderCursorPosition = from + delta * progress;
         updateSliderCursorDisplay();
-    		updateSliderProgressDisplay();
+        updateSliderProgressDisplay();
       }
     });
   }

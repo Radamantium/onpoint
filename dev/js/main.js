@@ -6,7 +6,7 @@ frameSectionsScrolling(
   {
     scrollTime: 1,
     parallaxed: [{
-      id: 'ice-parallaxed',
+      id: 'ice-keel__parallaxed',
       parallaxRatio: 0.5},
       {
       id: 'ice',
@@ -18,11 +18,13 @@ frameSectionsScrolling(
       id: 'scroll-down',
       sectionNum: 1},
     customUpdateFunctions: function() {
-      let linkElem = document.getElementById('scroll-down');
+      let shownElem = document.getElementById('scroll-down');
       if (content.style.transform == 'translateY(0px)') {
-        linkElem.style.opacity = 1;
+        shownElem.style.opacity = 1;
+        shownElem.style.display = 'block';
       } else {
-        linkElem.style.opacity = 0;
+        shownElem.style.opacity = 0;
+        shownElem.style.display = 'none';
       }
     }
   }
