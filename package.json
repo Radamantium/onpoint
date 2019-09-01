@@ -1,11 +1,9 @@
 {
   "name": "onpoint",
   "version": "1.0.0",
-  "description": "Onpoint test task",
+  "description": "onpoint-exam",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "scripts": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Radamantium/onpoint.git"
@@ -16,12 +14,19 @@
     "url": "https://github.com/Radamantium/onpoint/issues"
   },
   "homepage": "https://github.com/Radamantium/onpoint#readme",
-  "dependencies": {},
   "devDependencies": {
-    "autoprefixer": "^9.6.0",
+    "autoprefixer": "^9.6.1",
+    "browser-sync": "^2.26.7",
     "cssnano": "^4.1.10",
+    "del": "^5.1.0",
     "gulp": "^4.0.2",
+    "gulp-flatten": "^0.4.0",
+    "gulp-if": "^3.0.0",
+    "gulp-imagemin": "^6.1.0",
     "gulp-postcss": "^8.0.0",
-    "postcss-import": "^12.0.1"
+    "gulp-remember": "^1.0.1",
+    "gulp-sourcemaps": "^2.6.5",
+    "postcss-import": "^12.0.1",
+    "postcss-url": "^8.0.0"
   }
 }

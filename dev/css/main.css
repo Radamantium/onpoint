@@ -1,5 +1,5 @@
 @import "fonts.css";
-@import "frame_sections_scrolling.css";
-@import "slider.css";
-@import "alert.css";
+@import "../modules/frame-sections-scrolling/frame-sections-scrolling.css";
+@import "../modules/slider/slider.css";
+@import "../modules/alert/alert.css";
 @import "styles.css";
