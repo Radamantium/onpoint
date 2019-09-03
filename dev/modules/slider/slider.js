@@ -1,6 +1,6 @@
 'use strict';
 
-function slider(slider_id, options = {}) {
+export default function slider(slider_id, options = {}) {
 
   /* DEFAULT OPTIONS */
   if ( !('scrollTime' in options) || isNaN(options.scrollTime) )  {

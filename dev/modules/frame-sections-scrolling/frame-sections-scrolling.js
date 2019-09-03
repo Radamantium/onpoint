@@ -1,6 +1,6 @@
 'use strict';
 
-function frameSectionsScrolling(container_id, content_id, options = {}) {
+export default function frameSectionsScrolling(container_id, content_id, options = {}) {
 
   /* DEFAULT OPTIONS */
   if ( !('scrollTime' in options) || isNaN(options.scrollTime) )  {

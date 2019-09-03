@@ -1,8 +1,6 @@
 'use strict';
 
-alert();
-
-function alert() {
+export default function alert() {
   const wavesNum = 4;
   let alerts = document.getElementsByClassName('alert');
 
